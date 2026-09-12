@@ -2,9 +2,8 @@
 //
 // Usage:
 //
+//	make example name=simple
 //	./build/simple
-//
-// Source: https://github.com/raysan5/raylib/blob/master/examples/core/core_basic_window.c
 package main
 
 import (
@@ -15,12 +14,12 @@ import (
 var _ c.Int // for implicit int -> c.Int conversion
 
 const (
-	screenWidth  = 800
-	screenHeight = 450
+	screenWidth  = 640
+	screenHeight = 320
 )
 
 func main() {
-	libraylib.InitWindow(screenWidth, screenHeight, "raylib - basic window")
+	libraylib.InitWindow(screenWidth, screenHeight, "☀️ Solod / Raylib")
 	defer libraylib.CloseWindow()
 
 	libraylib.SetTargetFPS(60)
@@ -28,8 +27,9 @@ func main() {
 	// Loop until the user closes the window.
 	for !libraylib.WindowShouldClose() {
 		libraylib.BeginDrawing()
-		libraylib.ClearBackground(libraylib.RAYWHITE)
-		libraylib.DrawText("Congrats! You created your first window!", 190, 200, 20, libraylib.LIGHTGRAY)
+		libraylib.ClearBackground(libraylib.Color{13, 50, 89, 255})
+		libraylib.DrawText("solod", 150, 70, 128, libraylib.Color{242, 203, 73, 255})
+		libraylib.DrawText("Go can be a better C", 150, 190, 30, libraylib.WHITE)
 		libraylib.EndDrawing()
 	}
 }

@@ -2,6 +2,7 @@
 //
 // Usage:
 //
+//	make example name=input
 //	./build/input
 //
 // Source: https://github.com/raysan5/raylib/blob/master/examples/core/core_input_keys.c
