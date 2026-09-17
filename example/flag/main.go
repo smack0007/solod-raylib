@@ -30,8 +30,8 @@ const (
 	flagParts     = 25
 	flagPartWidth = flagWidth / flagParts
 
-	elapsedTimeFactor = 10
-	yOffsetFactor     = 10
+	speedFactor = 10
+	waveFactor  = 10
 )
 
 func main() {
@@ -45,6 +45,7 @@ func main() {
 	rl.ImageDrawText(&image, "Go can be a better C", 150, 190, 30, rl.WHITE)
 
 	texture := rl.LoadTextureFromImage(image)
+	defer rl.UnloadTexture(texture)
 
 	rl.UnloadImage(image)
 
@@ -53,23 +54,26 @@ func main() {
 
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.BLACK)
+
+		origin := rl.Vector2{X: halfFlagWidth, Y: halfFlagHeight}
 		for i := 0; i < flagParts; i += 1 {
-			angle := float64(flagPartWidth*i) + (elapsedTime * elapsedTimeFactor)
+			x := float32(flagPartWidth * i)
+			angle := float64(x) + elapsedTime*speedFactor
 			rl.DrawTexturePro(
 				texture,
 				rl.Rectangle{
-					X:      float32(flagPartWidth * i),
+					X:      x,
 					Y:      0,
 					Width:  flagPartWidth,
 					Height: flagHeight,
 				},
 				rl.Rectangle{
-					X:      halfScreenWidth + float32(flagPartWidth*i),
-					Y:      halfScreenHeight + (float32(math.Sin(angle)) * yOffsetFactor),
+					X:      halfScreenWidth + x,
+					Y:      halfScreenHeight + float32(math.Sin(angle)*waveFactor),
 					Width:  flagPartWidth,
 					Height: flagHeight,
 				},
-				rl.Vector2{X: halfFlagWidth, Y: halfFlagHeight},
+				origin,
 				0.0,
 				rl.WHITE)
 		}
